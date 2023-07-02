@@ -41,7 +41,6 @@ def get_ips_from_search_engines(query, num_pages):
                         res = requests.get(url, headers=headers)
                         res.raise_for_status()
                         matches = re.findall(ip_regex, res.text)
-                        # ...
                     except requests.exceptions.HTTPError as err:
                         if err.response.status_code == 439:
                             print(f'Captcha detected for URL: {url}')
@@ -124,7 +123,7 @@ if __name__ == '__main__':
     ip_list = get_ips_from_search_engines(args.query, args.pages)
     working_proxies = test_ports(ip_list, args.proxy)
 
-    with open('output.txt', 'w') as f:
+    with open('proxylist.txt', 'w') as f:
         for proxy in working_proxies:
             f.write(proxy + '\n')
             print(f'{proxy} added to output file')
